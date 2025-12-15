@@ -13,3 +13,14 @@ export async function getMovieGenres() {
     console.log("Error fetching movie genres", err);
   }
 }
+
+export async function getMoviesByGenre(genreId: string) {
+  try {
+    const res = await axios.get(
+      `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}`
+    );
+    return res.data;
+  } catch (err) {
+    console.log("Error fetching movies by genre", err);
+  }
+}
