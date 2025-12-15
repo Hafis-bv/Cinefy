@@ -11,7 +11,6 @@ interface GenresListProps {
 
 export const GenresList = ({ genres }: GenresListProps) => {
   const pathname = usePathname();
-  console.log(pathname);
   return (
     <div className="flex flex-col gap-4">
       <h5 className="font-bold text-2xl">Genres</h5>
