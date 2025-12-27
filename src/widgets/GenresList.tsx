@@ -1,12 +1,10 @@
 "use client";
+import { Genre } from "@/types/movie";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 
 interface GenresListProps {
-  genres: {
-    id: number;
-    name: string;
-  }[];
+  genres: Genre[];
 }
 
 export const GenresList = ({ genres }: GenresListProps) => {

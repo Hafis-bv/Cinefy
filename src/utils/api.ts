@@ -57,3 +57,14 @@ export async function getUpcomingMovies() {
     console.log("Error fetching trending movies", err);
   }
 }
+
+export async function getMovieDetails(id: string) {
+  try {
+    const res = await axios.get(
+      `${BASE_URL}/movie/${id}?language=en-US&append_to_response=credits&api_key=${API_KEY}`
+    );
+    return res.data;
+  } catch (err) {
+    console.log("Error fetching movie details", err);
+  }
+}

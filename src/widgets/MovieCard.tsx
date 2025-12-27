@@ -1,5 +1,6 @@
 import { Movie } from "@/types/movie";
 import getYear from "@/utils/getYear";
+import Link from "next/link";
 import { FaStar } from "react-icons/fa";
 
 interface MovieCardProps {
@@ -8,7 +9,7 @@ interface MovieCardProps {
 
 export const MovieCard = ({ movie }: MovieCardProps) => {
   return (
-    <div className="flex flex-col gap-3 w-67">
+    <Link href={`/movies/${movie.id}`} className="flex flex-col gap-3 w-67">
       <img
         className="rounded-xl h-100 object-cover shadow"
         src={`https://www.themoviedb.org/t/p/w300${movie.poster_path}`}
@@ -30,6 +31,6 @@ export const MovieCard = ({ movie }: MovieCardProps) => {
           </p>
         </div>
       </div>
-    </div>
+    </Link>
   );
 };

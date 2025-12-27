@@ -2,5 +2,6 @@
 
 @theme {
   --color-primary: #f6be00;
+  --color-text: #ccc;
   --color-body: rgb(16, 16, 16);
 }
