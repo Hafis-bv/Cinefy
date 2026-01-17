@@ -5,6 +5,7 @@ import {
 } from "@/utils/api";
 import { Hero } from "@/widgets/Hero";
 import { MovieSection } from "@/widgets/MovieSection";
+import { error } from "console";
 
 export default async function Home() {
   const trendingMoviesData = getTrendingMovies();

@@ -16,7 +16,7 @@ export const MovieContent = ({ movie }: MovieContentProps) => {
           src={`https://www.themoviedb.org/t/p/w300${movie.poster_path}`}
           alt={movie.title}
         />
-        <div className="flex flex-col justify-center items-center gap-5">
+        <div className="flex flex-col justify-center xl:items-start xl:text-left items-center gap-5">
           <h1 className="text-4xl font-bold">{movie.title}</h1>
           <div className="flex gap-5">
             <div className="flex text-text items-center">
