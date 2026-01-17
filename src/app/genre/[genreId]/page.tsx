@@ -1,10 +1,26 @@
-import { Movie } from "@/types/movie";
-import { getMoviesByGenre } from "@/utils/api";
+import { Genre, Movie } from "@/types/movie";
+import { getMovieGenres, getMoviesByGenre } from "@/utils/api";
 import { MovieCard } from "@/widgets/MovieCard";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 
 interface GenreDetailsProps {
   params: Promise<{ genreId: string }>;
+}
+
+export async function generateMetadata({
+  params,
+}: GenreDetailsProps): Promise<Metadata> {
+  const { genreId } = await params;
+  const { genres } = await getMovieGenres();
+
+  const currentGenre = genres.find(
+    (genre: Genre) => genre.id == Number(genreId),
+  );
+  if (!currentGenre) {
+    return { title: "Genre not found" };
+  }
+  return { title: currentGenre.name };
 }
 
 export default async function GenreDetails({ params }: GenreDetailsProps) {

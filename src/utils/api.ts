@@ -68,3 +68,25 @@ export async function getMovieDetails(id: string) {
     console.log("Error fetching movie details", err);
   }
 }
+
+export async function getPersonDetails(id: string) {
+  try {
+    const res = await axios.get(
+      `${BASE_URL}/person/${id}?language=en-USs&api_key=${API_KEY}`
+    );
+    return res.data;
+  } catch (err) {
+    console.log("Error fetching person details", err);
+  }
+}
+
+export async function getPersonMovieCredits(id: string) {
+  try {
+    const res = await axios.get(
+      `${BASE_URL}/person/${id}/movie_credits?language=en-US&api_key=${API_KEY}`
+    );
+    return res.data;
+  } catch (err) {
+    console.log("Error fetching person details", err);
+  }
+}
