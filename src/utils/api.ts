@@ -43,7 +43,7 @@ export async function getTrendingSeries() {
     );
     return res.data;
   } catch (err) {
-    console.log("Error fetching trending movies", err);
+    console.log("Error fetching trending series", err);
   }
 }
 
@@ -54,7 +54,7 @@ export async function getUpcomingMovies() {
     );
     return res.data;
   } catch (err) {
-    console.log("Error fetching trending movies", err);
+    console.log("Error fetching upcoming movies", err);
   }
 }
 
@@ -97,8 +97,8 @@ export async function getMovieVideo(id: string) {
       `${BASE_URL}/movie/${id}/videos?language=en-US&api_key=${API_KEY}`,
     );
     return res.data;
-  } catch (e) {
-    console.error("Error fetching similar movies", e);
+  } catch (err) {
+    console.error("Error fetching movies video", err);
   }
 }
 
@@ -108,8 +108,8 @@ export async function getSimilarMovies(id: string) {
       `${BASE_URL}/movie/${id}/recommendations?api_key=${API_KEY}`,
     );
     return res.data;
-  } catch (e) {
-    console.error("Error fetching similar movies", e);
+  } catch (err) {
+    console.error("Error fetching similar movies", err);
   }
 }
 
@@ -119,8 +119,8 @@ export async function getSimilarSeries(id: string) {
       `${BASE_URL}/tv/${id}/recommendations?api_key=${API_KEY}`,
     );
     return res.data;
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log("Error fetching similar series", err);
   }
 }
 
@@ -130,8 +130,8 @@ export async function getSeriesDetails(id: string) {
       `${BASE_URL}/tv/${id}?language=en-US&append_to_response=credits&api_key=${API_KEY}`,
     );
     return res.data;
-  } catch (error) {
-    console.log(error);
+  } catch (err) {
+    console.log("Error fetching series details", err);
   }
 }
 
@@ -141,7 +141,7 @@ export async function getSeriesVideo(id: string) {
       `${BASE_URL}/tv/${id}/videos?language=en-US&api_key=${API_KEY}`,
     );
     return res.data;
-  } catch (e) {
-    console.error("Error fetching similar series", e);
+  } catch (err) {
+    console.error("Error fetching series video", err);
   }
 }
