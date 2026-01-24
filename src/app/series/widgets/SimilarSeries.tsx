@@ -1,28 +1,29 @@
-import { Movie } from "@/types/movie";
+import { Series } from "@/types/series";
 import { MovieCard } from "@/widgets/MovieCard";
+import { SeriesCard } from "@/widgets/SeriresCard";
 
-interface SimilarMoviesProps {
-  movies: Movie[];
+interface SimilarSeriesProps {
+  series: Series[];
 }
 
-export const SimilarMovies = ({ movies }: SimilarMoviesProps) => {
+export const SimilarSeries = ({ series }: SimilarSeriesProps) => {
   return (
     <div className="py-20">
-      {movies.length ? (
+      {series.length ? (
         <div>
           <h1 className="text-center font-bold mb-8 text-5xl">
-            Similar Movies
+            Similar Series
           </h1>
           <div className="flex flex-wrap gap-8 justify-center items-center">
-            {movies.map((movie) => (
-              <MovieCard key={movie.id} movie={movie} />
+            {series.map((serie) => (
+              <SeriesCard key={serie.id} series={serie} />
             ))}
           </div>
         </div>
       ) : (
         <div>
           <h1 className="text-center text-gray-400 text-4xl">
-            No Similar Movies
+            No Similar Series
           </h1>
         </div>
       )}

@@ -113,6 +113,17 @@ export async function getSimilarMovies(id: string) {
   }
 }
 
+export async function getSimilarSeries(id: string) {
+  try {
+    const res = await axios.get(
+      `${BASE_URL}/tv/${id}/recommendations?api_key=${API_KEY}`,
+    );
+    return res.data;
+  } catch (error) {
+    console.log(error);
+  }
+}
+
 export async function getSeriesDetails(id: string) {
   try {
     const res = await axios.get(
@@ -131,6 +142,6 @@ export async function getSeriesVideo(id: string) {
     );
     return res.data;
   } catch (e) {
-    console.error("Error fetching similar movies", e);
+    console.error("Error fetching similar series", e);
   }
 }

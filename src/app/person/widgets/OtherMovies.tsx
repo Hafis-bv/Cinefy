@@ -7,7 +7,6 @@ interface OtherMoviesProps {
 }
 
 export const OtherMovies = ({ gender, actorCast }: OtherMoviesProps) => {
-  console.log(actorCast);
   return (
     <div className="py-20">
       <h1 className="text-5xl mb-12 font-bold text-center">
