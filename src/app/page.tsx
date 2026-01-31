@@ -1,16 +1,11 @@
-import {
-  getTrendingMovies,
-  getTrendingSeries,
-  getUpcomingMovies,
-} from "@/utils/api";
+import TmdbApi from "@/utils/api";
 import { Hero } from "@/widgets/Hero";
 import { MovieSection } from "@/widgets/MovieSection";
-import { error } from "console";
 
 export default async function Home() {
-  const trendingMoviesData = getTrendingMovies();
-  const trendingSeriesData = getTrendingSeries();
-  const upcomingMoviesData = getUpcomingMovies();
+  const trendingMoviesData = TmdbApi.getTrendingMovies();
+  const trendingSeriesData = TmdbApi.getTrendingSeries();
+  const upcomingMoviesData = TmdbApi.getUpcomingMovies();
 
   const [trendingMovies, trendingSeries, upcomingMovies] = await Promise.all([
     trendingMoviesData,

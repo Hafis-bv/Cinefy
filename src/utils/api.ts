@@ -1,147 +1,160 @@
-import axios from "axios";
+import axios, { AxiosInstance } from "axios";
 
-const API_KEY = process.env.NEXT_PUBLIC_TMDB_API_KEY;
-const BASE_URL = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
+class TMDBApi {
+  private client: AxiosInstance;
 
-export async function getMovieGenres() {
-  try {
-    const res = await axios.get(
-      `${BASE_URL}/genre/movie/list?language=en&api_key=${API_KEY}`,
-    );
-    return res.data;
-  } catch (err) {
-    console.log("Error fetching movie genres", err);
+  constructor() {
+    const apiKey = process.env.NEXT_PUBLIC_TMDB_API_KEY;
+    const baseURL = process.env.NEXT_PUBLIC_TMDB_BASE_URL;
+
+    if (!apiKey || !baseURL) {
+      console.warn(
+        "TMDB API credentials are missing in environment variables.",
+      );
+    }
+
+    this.client = axios.create({
+      baseURL,
+      params: {
+        api_key: apiKey,
+        language: "en-US",
+      },
+    });
+  }
+
+  // --- Жанры и Списки ---
+
+  async getMovieGenres() {
+    try {
+      const res = await this.client.get("/genre/movie/list");
+      return res.data;
+    } catch (err) {
+      console.error("Error fetching movie genres", err);
+    }
+  }
+
+  async getMoviesByGenre(id: string) {
+    try {
+      const res = await this.client.get("/discover/movie", {
+        params: { with_genres: id },
+      });
+      return res.data;
+    } catch (err) {
+      console.error("Error fetching movies by genre", err);
+    }
+  }
+
+  // --- Тренды и Новинки ---
+
+  async getTrendingMovies() {
+    try {
+      const res = await this.client.get("/trending/movie/week");
+      return res.data;
+    } catch (err) {
+      console.error("Error fetching trending movies", err);
+    }
+  }
+
+  async getTrendingSeries() {
+    try {
+      const res = await this.client.get("/trending/tv/week");
+      return res.data;
+    } catch (err) {
+      console.error("Error fetching trending series", err);
+    }
+  }
+
+  async getUpcomingMovies() {
+    try {
+      const res = await this.client.get("/movie/upcoming");
+      return res.data;
+    } catch (err) {
+      console.error("Error fetching upcoming movies", err);
+    }
+  }
+
+  // --- Детали Фильмов ---
+
+  async getMovieDetails(id: string) {
+    try {
+      const res = await this.client.get(`/movie/${id}`, {
+        params: { append_to_response: "credits" },
+      });
+      return res.data;
+    } catch (err) {
+      console.error("Error fetching movie details", err);
+    }
+  }
+
+  async getMovieVideo(id: string) {
+    try {
+      const res = await this.client.get(`/movie/${id}/videos`);
+      return res.data;
+    } catch (err) {
+      console.error("Error fetching movie video", err);
+    }
+  }
+
+  async getSimilarMovies(id: string) {
+    try {
+      const res = await this.client.get(`/movie/${id}/recommendations`);
+      return res.data;
+    } catch (err) {
+      console.error("Error fetching similar movies", err);
+    }
+  }
+
+  // --- Детали Сериалов ---
+
+  async getSeriesDetails(id: string) {
+    try {
+      const res = await this.client.get(`/tv/${id}`, {
+        params: { append_to_response: "credits" },
+      });
+      return res.data;
+    } catch (err) {
+      console.error("Error fetching series details", err);
+    }
+  }
+
+  async getSeriesVideo(id: string) {
+    try {
+      const res = await this.client.get(`/tv/${id}/videos`);
+      return res.data;
+    } catch (err) {
+      console.error("Error fetching series video", err);
+    }
+  }
+
+  async getSimilarSeries(id: string) {
+    try {
+      const res = await this.client.get(`/tv/${id}/recommendations`);
+      return res.data;
+    } catch (err) {
+      console.error("Error fetching similar series", err);
+    }
+  }
+
+  // --- Актеры и Персоны ---
+
+  async getPersonDetails(id: string) {
+    try {
+      const res = await this.client.get(`/person/${id}`);
+      return res.data;
+    } catch (err) {
+      console.error("Error fetching person details", err);
+    }
+  }
+
+  async getPersonMovieCredits(id: string) {
+    try {
+      const res = await this.client.get(`/person/${id}/movie_credits`);
+      return res.data;
+    } catch (err) {
+      console.error("Error fetching person movie credits", err);
+    }
   }
 }
 
-export async function getMoviesByGenre(genreId: string) {
-  try {
-    const res = await axios.get(
-      `${BASE_URL}/discover/movie?api_key=${API_KEY}&with_genres=${genreId}`,
-    );
-    return res.data;
-  } catch (err) {
-    console.log("Error fetching movies by genre", err);
-  }
-}
-
-export async function getTrendingMovies() {
-  try {
-    const res = await axios.get(
-      `${BASE_URL}/trending/movie/week?language=en&api_key=${API_KEY}`,
-    );
-    return res.data;
-  } catch (err) {
-    console.log("Error fetching trending movies", err);
-  }
-}
-
-export async function getTrendingSeries() {
-  try {
-    const res = await axios.get(
-      `${BASE_URL}/trending/tv/week?language=en&api_key=${API_KEY}`,
-    );
-    return res.data;
-  } catch (err) {
-    console.log("Error fetching trending series", err);
-  }
-}
-
-export async function getUpcomingMovies() {
-  try {
-    const res = await axios.get(
-      `${BASE_URL}/movie/upcoming?language=en-US&api_key=${API_KEY}`,
-    );
-    return res.data;
-  } catch (err) {
-    console.log("Error fetching upcoming movies", err);
-  }
-}
-
-export async function getMovieDetails(id: string) {
-  try {
-    const res = await axios.get(
-      `${BASE_URL}/movie/${id}?language=en-US&append_to_response=credits&api_key=${API_KEY}`,
-    );
-    return res.data;
-  } catch (err) {
-    console.log("Error fetching movie details", err);
-  }
-}
-
-export async function getPersonDetails(id: string) {
-  try {
-    const res = await axios.get(
-      `${BASE_URL}/person/${id}?language=en-USs&api_key=${API_KEY}`,
-    );
-    return res.data;
-  } catch (err) {
-    console.log("Error fetching person details", err);
-  }
-}
-
-export async function getPersonMovieCredits(id: string) {
-  try {
-    const res = await axios.get(
-      `${BASE_URL}/person/${id}/movie_credits?language=en-US&api_key=${API_KEY}`,
-    );
-    return res.data;
-  } catch (err) {
-    console.log("Error fetching person details", err);
-  }
-}
-
-export async function getMovieVideo(id: string) {
-  try {
-    const res = await axios.get(
-      `${BASE_URL}/movie/${id}/videos?language=en-US&api_key=${API_KEY}`,
-    );
-    return res.data;
-  } catch (err) {
-    console.error("Error fetching movies video", err);
-  }
-}
-
-export async function getSimilarMovies(id: string) {
-  try {
-    const res = await axios.get(
-      `${BASE_URL}/movie/${id}/recommendations?api_key=${API_KEY}`,
-    );
-    return res.data;
-  } catch (err) {
-    console.error("Error fetching similar movies", err);
-  }
-}
-
-export async function getSimilarSeries(id: string) {
-  try {
-    const res = await axios.get(
-      `${BASE_URL}/tv/${id}/recommendations?api_key=${API_KEY}`,
-    );
-    return res.data;
-  } catch (err) {
-    console.log("Error fetching similar series", err);
-  }
-}
-
-export async function getSeriesDetails(id: string) {
-  try {
-    const res = await axios.get(
-      `${BASE_URL}/tv/${id}?language=en-US&append_to_response=credits&api_key=${API_KEY}`,
-    );
-    return res.data;
-  } catch (err) {
-    console.log("Error fetching series details", err);
-  }
-}
-
-export async function getSeriesVideo(id: string) {
-  try {
-    const res = await axios.get(
-      `${BASE_URL}/tv/${id}/videos?language=en-US&api_key=${API_KEY}`,
-    );
-    return res.data;
-  } catch (err) {
-    console.error("Error fetching series video", err);
-  }
-}
+const TmdbApi = new TMDBApi();
+export default TmdbApi;

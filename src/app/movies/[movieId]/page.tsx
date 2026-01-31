@@ -1,5 +1,5 @@
 import { MovieDetails as MovieDetailsType } from "@/types/movie";
-import { getMovieDetails, getMovieVideo, getSimilarMovies } from "@/utils/api";
+import TmdbApi from "@/utils/api";
 import { notFound } from "next/navigation";
 import { MovieContent } from "../widgets/MovieContent";
 import { Metadata } from "next";
@@ -15,7 +15,7 @@ export async function generateMetadata({
   params,
 }: MovieDetailsProps): Promise<Metadata> {
   const { movieId } = await params;
-  const movie: MovieDetailsType = await getMovieDetails(movieId);
+  const movie: MovieDetailsType = await TmdbApi.getMovieDetails(movieId);
   if (!movie) {
     return { title: "Movie not found" };
   }
@@ -24,9 +24,9 @@ export async function generateMetadata({
 
 export default async function MovieDetails({ params }: MovieDetailsProps) {
   const { movieId } = await params;
-  const movie: MovieDetailsType = await getMovieDetails(movieId);
-  const video = await getMovieVideo(movieId);
-  const similarMovies = await getSimilarMovies(movieId);
+  const movie: MovieDetailsType = await TmdbApi.getMovieDetails(movieId);
+  const video = await TmdbApi.getMovieVideo(movieId);
+  const similarMovies = await TmdbApi.getSimilarMovies(movieId);
   if (!movie) {
     return notFound();
   }

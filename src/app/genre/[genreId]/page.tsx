@@ -1,5 +1,5 @@
 import { Genre, Movie } from "@/types/movie";
-import { getMovieGenres, getMoviesByGenre } from "@/utils/api";
+import TmdbApi from "@/utils/api";
 import { MovieCard } from "@/widgets/MovieCard";
 import { Metadata } from "next";
 import { notFound } from "next/navigation";
@@ -12,7 +12,7 @@ export async function generateMetadata({
   params,
 }: GenreDetailsProps): Promise<Metadata> {
   const { genreId } = await params;
-  const { genres } = await getMovieGenres();
+  const { genres } = await TmdbApi.getMovieGenres();
 
   const currentGenre = genres.find(
     (genre: Genre) => genre.id == Number(genreId),
@@ -25,7 +25,7 @@ export async function generateMetadata({
 
 export default async function GenreDetails({ params }: GenreDetailsProps) {
   const { genreId } = await params;
-  const { results: movies } = await getMoviesByGenre(genreId);
+  const { results: movies } = await TmdbApi.getMoviesByGenre(genreId);
   if (!movies.length) {
     return notFound();
   }

@@ -1,9 +1,5 @@
 import { MovieDetails as MovieDetailsType } from "@/types/movie";
-import {
-  getSeriesDetails,
-  getSeriesVideo,
-  getSimilarSeries,
-} from "@/utils/api";
+import TmdbApi from "@/utils/api";
 import { notFound } from "next/navigation";
 import { Metadata } from "next";
 import { SeriesDetails as SeriesDetailsType } from "@/types/series";
@@ -20,7 +16,7 @@ export async function generateMetadata({
   params,
 }: SeriesDetailsProps): Promise<Metadata> {
   const { seriesId } = await params;
-  const series: SeriesDetailsType = await getSeriesDetails(seriesId);
+  const series: SeriesDetailsType = await TmdbApi.getSeriesDetails(seriesId);
   if (!series) {
     return { title: "Movie not found" };
   }
@@ -29,9 +25,9 @@ export async function generateMetadata({
 
 export default async function SeriesDetails({ params }: SeriesDetailsProps) {
   const { seriesId } = await params;
-  const series: SeriesDetailsType = await getSeriesDetails(seriesId);
-  const { results: videos } = await getSeriesVideo(seriesId);
-  const { results: similarSeries } = await getSimilarSeries(seriesId);
+  const series: SeriesDetailsType = await TmdbApi.getSeriesDetails(seriesId);
+  const { results: videos } = await TmdbApi.getSeriesVideo(seriesId);
+  const { results: similarSeries } = await TmdbApi.getSimilarSeries(seriesId);
   if (!series) {
     return notFound();
   }
