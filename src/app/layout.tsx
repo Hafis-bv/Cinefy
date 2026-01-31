@@ -32,7 +32,7 @@ export default function RootLayout({
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-body text-white`}
       >
-        <div className="flex flex-col md:flex-row ">
+        <div className="flex flex-col xl:flex-row ">
           <Sidebar />
           <div className="w-full overflow-x-auto">
             <div className="sm:h-screen overflow-auto">
