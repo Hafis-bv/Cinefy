@@ -2,6 +2,7 @@ import Link from "next/link";
 import { GenresList } from "./GenresList";
 import { getMovieGenres } from "@/utils/api";
 import { SidebarSocial } from "./SidebarSocial";
+import { SearchBar } from "./SearchBar";
 
 export const Sidebar = async () => {
   const { genres } = await getMovieGenres();
@@ -10,13 +11,7 @@ export const Sidebar = async () => {
       <Link className="font-bold text-5xl" href="/">
         Cin<span className="text-primary">efy</span>
       </Link>
-      <form className="w-full">
-        <input
-          className="p-3 pr-12 w-full rounded-2xl outline-none bg-[#363636]"
-          placeholder="Search..."
-          type="text"
-        />
-      </form>
+      <SearchBar />
       <GenresList genres={genres} />
       <SidebarSocial />
       <p className="text-center">&copy; Copyright 2025</p>
