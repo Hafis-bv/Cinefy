@@ -20,7 +20,7 @@ export const PersonDetails = ({ person }: ActorsListProps) => {
             alt={person.name}
           />
         ) : (
-          <div className="bg-primary flex items-center justify-center w-65 h-100 rounded-lg">
+          <div className="bg-primary flex items-center justify-center w-66.5 h-100 rounded-lg">
             <BiSolidImageAlt size={50} />
           </div>
         )}

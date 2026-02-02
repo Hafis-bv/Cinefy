@@ -18,5 +18,5 @@ export const useSidebar = () => {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [open, close]);
 
-  return { open, toggle, close };
+  return { open, toggle, close, setOpen };
 };

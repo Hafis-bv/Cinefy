@@ -3,7 +3,6 @@ import { Series } from "@/types/series";
 import { multiSearch } from "@/utils/multi-search";
 import { MovieCard } from "@/widgets/MovieCard";
 import { SeriesCard } from "@/widgets/SeriresCard";
-import { notFound } from "next/navigation";
 
 interface SearchPageProps {
   params: Promise<{ slug: string }>;
@@ -19,8 +18,8 @@ export default async function SearchPage({ params }: SearchPageProps) {
   const results = await multiSearch(slug);
 
   return (
-    <div>
-      <h1 className="text-center text-5xl mt-10 font-semibold tracking-[1px]">
+    <div className="mx-3">
+      <h1 className="text-center text-3xl md:text-5xl mt-10 font-semibold tracking-[1px]">
         Search results for{" "}
         <span className="text-primary">{decodeURIComponent(slug)}</span>
       </h1>
@@ -35,7 +34,7 @@ export default async function SearchPage({ params }: SearchPageProps) {
           )}
         </div>
       ) : (
-        <h1 className="text-5xl font-medium text-center mt-40">
+        <h1 className="text-3xl md:text-5xl font-medium text-center mt-20 md:mt-40">
           No results <span className="text-primary">found</span>
         </h1>
       )}

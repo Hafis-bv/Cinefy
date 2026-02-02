@@ -9,7 +9,10 @@ interface ContainerProps {
 
 export const Container = ({ children, className, id }: ContainerProps) => {
   return (
-    <div id={id || ""} className={clsx("max-w-3xl mx-auto", className)}>
+    <div
+      id={id || ""}
+      className={clsx("max-w-3xl mx-auto px-5 sm:px-0", className)}
+    >
       {children}
     </div>
   );
