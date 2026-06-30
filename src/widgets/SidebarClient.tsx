@@ -57,7 +57,7 @@ export const SidebarClient = ({ genres }: SidebarClientProps) => {
       </div>
 
       {/*DESKTOP SIDEBAR*/}
-      <div className="hidden xl:flex flex-col gap-10 justify-between h-screen border-r border-gray-700 py-12 px-8 w-[22%]">
+      <div className="hidden xl:flex flex-col gap-10 justify-between h-screen border-r border-gray-700 py-12 px-8 w-[22%] sticky top-0 overflow-y-auto">
         <Link className="font-bold text-5xl" href="/">
           Cin<span className="text-primary">efy</span>
         </Link>

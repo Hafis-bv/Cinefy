@@ -57,7 +57,7 @@ export const SearchBar = ({ setOpen = () => null }: SearchBarProps) => {
         />
       </button>
       {error && (
-        <p className="text-red-500 text-sm mt-2 absolute left-1/2 -translate-x-1/2 -bottom-7">
+        <p className="text-red-500 text-sm mt-2 absolute left-1/2 -translate-x-1/2  w-full">
           {error}
         </p>
       )}
